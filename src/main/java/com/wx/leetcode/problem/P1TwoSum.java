@@ -1,4 +1,4 @@
-package com.wx.leetcode.p1;
+package com.wx.leetcode.problem;
 
 import com.wx.leetcode.util.Util;
 
@@ -21,7 +21,7 @@ import java.util.HashMap;
  * @author weixing
  * @date 2019/1/1
  **/
-public class TwoSum {
+public class P1TwoSum {
 
     public static int[] twoSum(int[] nums, int target) {
         if(nums == null || nums.length < 2) {
