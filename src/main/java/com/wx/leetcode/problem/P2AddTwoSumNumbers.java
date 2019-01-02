@@ -14,6 +14,8 @@ package com.wx.leetcode.problem;
  * Input: (2 -> 4 -> 3) + (5 -> 6 -> 4)
  * Output: 7 -> 0 -> 8
  * Explanation: 342 + 465 = 807.
+ * T(n) = O(n)
+ * S(n) = O(n)
  * @author weixing
  * @date 2019/1/2
  **/
