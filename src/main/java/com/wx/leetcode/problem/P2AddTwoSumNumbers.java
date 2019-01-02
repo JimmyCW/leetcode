@@ -23,83 +23,50 @@ public class P2AddTwoSumNumbers {
         ListNode l1 = new ListNode(2);
         l1.next = new ListNode(4);
         l1.next.next = new ListNode(3);
+        l1.next.next.next = new ListNode(5);
 
         ListNode l2 = new ListNode(5);
         l2.next = new ListNode(6);
-        l2.next.next = new ListNode(4);
+        l2.next.next = new ListNode(18);
 
         printListNode(addTwoNumbers(l1, l2));
     }
 
     public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        ListNode result = null;
-        if(l1 == null && l1 == null) {
+        if(l1 == null & l2 == null) {
             return null;
         }
-        ListNode first = null,
-                second = null;
-        boolean firstFlag = false;
-        boolean secondFlag = false;
-        do {
-            first = (first == null ? l1 : first.next);
-            if(first == null) {
-                firstFlag = true;
-                first = new ListNode(0);
-            }
-            second = (second == null ? l2 : second.next);
-            if(second == null) {
-                secondFlag = true;
-                second = new ListNode(0);
-            }
-            if(hasNext(l1) != null) {
-                if(null == result) {
-                    result = new ListNode(first.val + second.val);
-                } else {
-                    if(secondFlag && firstFlag) {
-                        return result;
-                    } else {
-                        result.next = new ListNode(first.val + second.val);
-                    }
-                }
-            } else {
-                if(hasNext(l2) != null) {
-                    while (hasNext(l2) != null) {
-                        if(secondFlag && firstFlag) {
-                            return result;
-                        } else {
-                            result.next = new ListNode(first.val + second.val);
-                        }
-                        first = (first == null ? l1 : first.next);
-                        if(first == null) {
-                            firstFlag = true;
-                            first = new ListNode(0);
-                        }
-                        second = (second == null ? l2 : second.next);
-                        if(second == null) {
-                            secondFlag = true;
-                            second = new ListNode(0);
-                        }
-                    }
-                } else {
-                    return result;
-                }
-            }
-        } while (hasNext(l1) != null);
+        ListNode result = new ListNode(0);
+        ListNode first = l1, second = l2, cur = result;
+        int sum = 0;
+        while (first != null || second != null) {
+             if(first != null) {
+                 sum += first.val;
+                 first = first.next;
+             }
+             if(second != null) {
+                 sum += second.val;
+                 second = second.next;
+             }
+             cur.val = sum % 10;
+             sum /= 10;
+             if(first == null && second == null) {
+                 continue;
+             }
+             cur.next = new ListNode(0);
+             cur = cur.next;
+        }
+        if(sum > 0) {
+            cur.next = new ListNode(sum);
+        }
         return result;
     }
 
 
-    public static ListNode hasNext(ListNode listNode) {
-        if(listNode.next == null) {
-            return null;
-        } else {
-            return listNode.next;
-        }
-    }
 
     public static void printListNode(ListNode listNode) {
-        StringBuilder sb = new StringBuilder(listNode.val);
-        while (hasNext(listNode) != null) {
+        StringBuilder sb = new StringBuilder().append(listNode.val);
+        while (listNode.next != null) {
             listNode = listNode.next;
             sb.append("->").append(listNode.val);
         }
