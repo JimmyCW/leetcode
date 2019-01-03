@@ -14,6 +14,8 @@ package com.wx.leetcode.problem;
  * Input: (2 -> 4 -> 3) + (5 -> 6 -> 4)
  * Output: 7 -> 0 -> 8
  * Explanation: 342 + 465 = 807.
+ * T(n) = O(n)
+ * S(n) = O(n)
  * @author weixing
  * @date 2019/1/2
  **/
@@ -23,45 +25,49 @@ public class P2AddTwoSumNumbers {
         ListNode l1 = new ListNode(2);
         l1.next = new ListNode(4);
         l1.next.next = new ListNode(3);
+        l1.next.next.next = new ListNode(5);
 
         ListNode l2 = new ListNode(5);
         l2.next = new ListNode(6);
-        l2.next.next = new ListNode(4);
+        l2.next.next = new ListNode(18);
 
         printListNode(addTwoNumbers(l1, l2));
     }
 
     public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        ListNode result = new ListNode(0);
-        if(l1 == null && l1 == null) {
+        if(l1 == null & l2 == null) {
             return null;
         }
-        ListNode first = l1,
-                second = l2,
-                cur = null;
+        ListNode result = new ListNode(0);
+        ListNode first = l1, second = l2, cur = result;
         int sum = 0;
-        while (first.next != null || second.next != null) {
-            if(first != null) {
-                sum += first.val;
-                first = first.next;
-            }
-            if(second != null) {
-                sum += second.val;
-                second = second.next;
-            }
-            cur = new ListNode(sum%10);
-            cur.next = cur;
-            sum /= 10;
+        while (first != null || second != null) {
+             if(first != null) {
+                 sum += first.val;
+                 first = first.next;
+             }
+             if(second != null) {
+                 sum += second.val;
+                 second = second.next;
+             }
+             cur.val = sum % 10;
+             sum /= 10;
+             if(first == null && second == null) {
+                 continue;
+             }
+             cur.next = new ListNode(0);
+             cur = cur.next;
         }
-
+        if(sum > 0) {
+            cur.next = new ListNode(sum);
+        }
         return result;
     }
 
 
 
-
     public static void printListNode(ListNode listNode) {
-        StringBuilder sb = new StringBuilder(listNode.val);
+        StringBuilder sb = new StringBuilder().append(listNode.val);
         while (listNode.next != null) {
             listNode = listNode.next;
             sb.append("->").append(listNode.val);
